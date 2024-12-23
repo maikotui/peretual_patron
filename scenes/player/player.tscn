@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://drpynqknig78f"]
+
+[ext_resource type="Texture2D" uid="uid://bxsjf48pkumjv" path="res://assets/kenney_proto/PNG/Red/texture_12.png" id="1_l62qh"]
+[ext_resource type="Script" path="res://source/player_controller.gd" id="1_tmuo5"]
+[ext_resource type="PackedScene" uid="uid://wmf2eu0uuhrg" path="res://addons/third-person-camera/third_person_camera/ThirdPersonCamera.tscn" id="2_72vqk"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_orkrm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hlm0e"]
+albedo_texture = ExtResource("1_l62qh")
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera")]
+script = ExtResource("1_tmuo5")
+camera = NodePath("ThirdPersonCamera")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+shape = SubResource("CylinderShape3D_orkrm")
+
+[node name="Body" type="Node3D" parent="."]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+material_override = SubResource("StandardMaterial3D_hlm0e")
+
+[node name="ThirdPersonCamera" parent="." instance=ExtResource("2_72vqk")]
+distance_from_pivot = 5.0
+pivot_offset = Vector2(0, 1)
+current = true
+mouse_follow = true
+mouse_x_sensitiveness = 3.0
+mouse_y_sensitiveness = 0.8
